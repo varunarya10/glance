@@ -18,8 +18,12 @@
 import datetime
 import kombu.entity
 import mox
-import qpid
-import qpid.messaging
+try:
+    import qpid
+    import qpid.messaging
+except ImportError:
+    qpid = None
+
 import stubout
 import webob
 
@@ -319,6 +323,9 @@ class TestQpidNotifier(utils.BaseTestCase):
 
     def setUp(self):
         super(TestQpidNotifier, self).setUp()
+
+        if qpid is None:
+            self.skipTest('qpid is not insalled')
 
         self.mocker = mox.Mox()
 

@@ -18,7 +18,10 @@
 import time
 
 import httplib2
-import psutil
+try:
+    import psutil
+except ImportError:
+    psutil = None
 
 from glance.tests import functional
 from glance.tests.utils import execute
@@ -28,6 +31,9 @@ class TestMultiprocessing(functional.FunctionalTest):
     """Functional tests for the bin/glance CLI tool"""
 
     def setUp(self):
+        if psutil is None:
+            self.skipTest('psutil is not installed')
+
         self.workers = 2
         super(TestMultiprocessing, self).setUp()
 
