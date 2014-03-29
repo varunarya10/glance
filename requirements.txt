@@ -41,4 +41,4 @@ python-keystoneclient>=0.3.2
 pyOpenSSL>=0.11
 
 # Required by openstack.common libraries
-six>=1.4.1
+six
